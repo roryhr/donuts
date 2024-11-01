@@ -79,7 +79,7 @@ DATABASES = {
     "default": {
         "ENGINE": "django.contrib.gis.db.backends.postgis",
         "NAME": "geodjango",
-        "USER": "geo",
+        "USER": "rory",
     }
 }
 
@@ -124,3 +124,5 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+GDAL_LIBRARY_PATH = "/opt/homebrew/Cellar/gdal/3.9.3_2/lib/libgdal.dylib"
+GEOS_LIBRARY_PATH = '/opt/homebrew/Cellar/geos/3.13.0/lib/libgeos_c.dylib'  # Replace with your actual GEOS path
