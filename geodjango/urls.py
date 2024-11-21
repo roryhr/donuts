@@ -18,6 +18,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from donut.views import index, shop_data
+
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("", index, name="index"),
+    path("api/shops/", shop_data, name="shop_data"),
 ]

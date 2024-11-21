@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.gis",
     "world",
+    "donut",
 ]
 
 MIDDLEWARE = [
@@ -117,12 +118,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
-
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "static"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 GDAL_LIBRARY_PATH = "/opt/homebrew/Cellar/gdal/3.9.3_2/lib/libgdal.dylib"
-GEOS_LIBRARY_PATH = '/opt/homebrew/Cellar/geos/3.13.0/lib/libgeos_c.dylib'  # Replace with your actual GEOS path
+GEOS_LIBRARY_PATH = "/opt/homebrew/Cellar/geos/3.13.0/lib/libgeos_c.dylib"  # Replace with your actual GEOS path
