@@ -1,14 +1,26 @@
-Donuts with GeoDjango
+## Donuts with GeoDjango
+
+If everything is already installed just do a 
+
+```commandline
+make dev
+```
+
+
 
 ## Installation 
+Install Python 3.12. I used conda to manage Python.
 
-I have MacOS 12 so this gets tricky. 
-No XCode means I can't `brew install postgis` so I'll get Postgres.app which has it already
+```commandline
+conda create -n py312 python=3.12
+```
+
+
+
 
 ```commandline
 $ brew install gdal
 $ brew install libgeoip
+
+pip install gdal
 ```
-
-
-Python 3.12

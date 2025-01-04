@@ -36,10 +36,33 @@ function renderShopsOnMap(shops) {
 var popup = L.popup();
 
 function onMapClick(e) {
-    popup
-        .setLatLng(e.latlng)
-        .setContent("You clicked the map at " + e.latlng.toString())
-        .openOn(map);
+    const { lat, lng } = e.latlng;
+
+    // Fetch distances from the server
+    fetch(`/api/calculate_distances/?lat=${lat}&lon=${lng}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log('Shops with distances:', data);
+
+            let content = `<b>Clicked Location:</b> (${lat}, ${lng})<br><br>`;
+            content += `<b>Nearby Shops:</b><br>`;
+
+            data.forEach(shop => {
+                content += `${shop.name} - ${shop.distance.toFixed(2)} meters<br>`;
+            });
+
+            popup
+                .setLatLng(e.latlng)
+                .setContent(content)
+                .openOn(map);
+        })
+        .catch(error => {
+            console.error('Error fetching distances:', error);
+            popup
+                .setLatLng(e.latlng)
+                .setContent('Error fetching distances.')
+                .openOn(map);
+        });
 }
 
 map.on('click', onMapClick);

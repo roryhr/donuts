@@ -18,10 +18,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from donut.views import index, shop_data
+from donut.views import index, shop_data, calculate_distances
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", index, name="index"),
     path("api/shops/", shop_data, name="shop_data"),
+    path("api/calculate_distances/", calculate_distances, name="calculate_distances"),
 ]

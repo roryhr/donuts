@@ -9,6 +9,9 @@ class Shop(models.Model):
     lat = models.FloatField()
     point = models.PointField()
 
+    address_line_1 = models.CharField(max_length=255)
+    address_line_2 = models.CharField(max_length=255)
+
     def save(self, *args, **kwargs):
         self.point = Point(self.lon, self.lat, srid=4326)
         super().save(*args, **kwargs)
