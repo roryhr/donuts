@@ -25,13 +25,25 @@ loadShops();
 function renderShopsOnMap(shops) {
     // Example: Iterate over the shops and render them
     shops.forEach(shop => {
-        console.log(`Shop: ${shop.name}, Location: (${shop.lat}, ${shop.lon})`);
+        // console.log(`Shop: ${shop.name}, Location: (${shop.lat}, ${shop.lon})`);
         // Add map plotting logic here
         var marker = L.marker([shop.lat, shop.lon]).addTo(map);
         marker.bindPopup("<b>" + shop.name + "</b><br>");
     });
 }
 
+
+function renderShopsHTML(shops) {
+    console.log("IN SHOPS HTML");
+    console.log(shops);
+    const shopList = document.getElementById('shop-list'); // Assuming you have an element with this ID
+  
+    shops.forEach(shop => {
+      const listItem = document.createElement('li');
+      listItem.textContent = `${shop.name} - ${shop.address}`; 
+      shopList.appendChild(listItem);
+    });
+  }
 
 var popup = L.popup();
 
@@ -55,6 +67,9 @@ function onMapClick(e) {
                 .setLatLng(e.latlng)
                 .setContent(content)
                 .openOn(map);
+            
+            renderShopsHTML(data);
+
         })
         .catch(error => {
             console.error('Error fetching distances:', error);

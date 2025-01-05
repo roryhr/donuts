@@ -18,7 +18,6 @@ def shop_data(request):
 
 
 def calculate_distances(request):
-    # Get latitude and longitude from the request
     lat = float(request.GET.get("lat"))
     lon = float(request.GET.get("lon"))
 

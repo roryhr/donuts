@@ -9,15 +9,18 @@
 {% load static %}
 <script src="{% static 'js/script.js' %}"></script>
 
-<h1>Shop List</h1>
+<h1>Nearby Shops</h1>
+<div id="shop-list">
+</div>
 
+
+<h1>All Shops</h1>
 {% for shop in shops %}
 <div class="shop">
     <h2>{{ shop.name }}</h2>
     <p><strong>Address:</strong><br>{{ shop.address_line_1 }}<br>{{ shop.address_line_2 }}</p>
     <p><strong>Review:</strong> {{ shop.review }}</p>
 </div>
-{% empty %}
-<p>No shops found.</p>
 {% endfor %}
+
 {% endblock %}
