@@ -8,16 +8,40 @@
     <title>Django Donut Data</title>
 
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/leaflet.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/leaflet.css' %}" />
     <script src="{% static 'js/leaflet.js' %}"></script>
+    <style>
+        /* Basic styling to get started, you'll want to customize more */
+        #container {
+            display: flex;
+        }
+
+        #map-container {
+            width: 60%;
+            /* Adjust map width as needed */
+        }
+
+        #shop-list {
+            width: 40%;
+            /* Adjust shop list width */
+            margin-right: 20px;
+            /* Space between map and list */
+        }
+
+        .shop {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="container mt-4">
-    {% block content %}
-    {% endblock %}
-</div>
+    <div class="container mt-4">
+        {% block content %}
+        {% endblock %}
+    </div>
 
 </body>
 

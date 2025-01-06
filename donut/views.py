@@ -7,7 +7,7 @@ from donut.models import Shop
 
 
 def index(request):
-    shops = Shop.objects.all()[:5]
+    shops = Shop.objects.order_by("name").all()[:5]
     context = {"shops": shops}
     return render(request, "index.html", context)
 
@@ -29,14 +29,14 @@ def calculate_distances(request):
         "distance"
     )[:5]
 
-    # Serialize data to JSON
     shop_data = [
         {
             "name": shop.name,
             "review": shop.review,
             "lat": shop.lat,
             "lon": shop.lon,
-            "distance": shop.distance.m,  # Distance in meters
+            "distance": shop.distance.m,
+            "address_line_1": shop.address_line_1,
         }
         for shop in shops
     ]

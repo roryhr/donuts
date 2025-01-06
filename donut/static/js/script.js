@@ -1,4 +1,4 @@
-var map = L.map('map').setView([37.910, -119.0117], 4);
+var map = L.map('map').setView([37.910, -119.0117], 6);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18,
@@ -10,7 +10,7 @@ console.log('IN SCRIPT.JS from JS static');
 async function loadShops() {
     try {
         const response = await fetch('/api/shops/');
-        const shops = await response.json(); 
+        const shops = await response.json();
         console.log(shops); // Use the shop data
         // Use `shops` here, e.g., pass it to a map-rendering function
         renderShopsOnMap(shops);
@@ -36,14 +36,41 @@ function renderShopsOnMap(shops) {
 function renderShopsHTML(shops) {
     console.log("IN SHOPS HTML");
     console.log(shops);
-    const shopList = document.getElementById('shop-list'); // Assuming you have an element with this ID
-  
+    const shopList = document.getElementById('shop-list');
+    shopList.innerHTML = '';
+
     shops.forEach(shop => {
-      const listItem = document.createElement('li');
-      listItem.textContent = `${shop.name} - ${shop.address}`; 
-      shopList.appendChild(listItem);
+        // Create a div for each shop
+        const shopDiv = document.createElement('div', tagName = "shop");
+        shopDiv.classList.add('shop');
+
+        // Add elements inside the div
+
+        const nameHeading = document.createElement('h2');
+        nameHeading.textContent = shop.name;
+        shopDiv.appendChild(nameHeading);
+
+        const addressParagraph = document.createElement('p');
+        const strongAddress = document.createElement('strong');
+        strongAddress.textContent = 'Address:';
+        addressParagraph.appendChild(strongAddress);
+        addressParagraph.appendChild(document.createTextNode('\n')); // Add a line break
+        addressParagraph.appendChild(document.createTextNode(shop.address_line_1));
+        addressParagraph.appendChild(document.createTextNode('\n'));
+        addressParagraph.appendChild(document.createTextNode(shop.address_line_2));
+        shopDiv.appendChild(addressParagraph);
+
+        const reviewParagraph = document.createElement('p');
+        const strongReview = document.createElement('strong');
+        strongReview.textContent = 'Review:';
+        reviewParagraph.appendChild(strongReview);
+        reviewParagraph.appendChild(document.createTextNode(shop.review));
+        shopDiv.appendChild(reviewParagraph);
+
+        // Add the shop div to the list container
+        shopList.appendChild(shopDiv);
     });
-  }
+}
 
 var popup = L.popup();
 
@@ -60,14 +87,14 @@ function onMapClick(e) {
             content += `<b>Nearby Shops:</b><br>`;
 
             data.forEach(shop => {
-                content += `${shop.name} - ${shop.distance.toFixed(2)} meters<br>`;
+                content += `${shop.name} - ${shop.distance.toFixed(0)} meters<br>`;
             });
 
             popup
                 .setLatLng(e.latlng)
                 .setContent(content)
                 .openOn(map);
-            
+
             renderShopsHTML(data);
 
         })
