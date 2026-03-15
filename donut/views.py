@@ -37,6 +37,7 @@ def calculate_distances(request):
             "lon": shop.lon,
             "distance": shop.distance.m,
             "address_line_1": shop.address_line_1,
+            "address_line_2": shop.address_line_2,
         }
         for shop in shops
     ]

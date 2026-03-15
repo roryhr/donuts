@@ -41,10 +41,8 @@ function renderShopsHTML(shops) {
 
     shops.forEach(shop => {
         // Create a div for each shop
-        const shopDiv = document.createElement('div', tagName = "shop");
+        const shopDiv = document.createElement('div');
         shopDiv.classList.add('shop');
-
-        // Add elements inside the div
 
         const nameHeading = document.createElement('h2');
         nameHeading.textContent = shop.name;
@@ -54,9 +52,9 @@ function renderShopsHTML(shops) {
         const strongAddress = document.createElement('strong');
         strongAddress.textContent = 'Address:';
         addressParagraph.appendChild(strongAddress);
-        addressParagraph.appendChild(document.createTextNode('\n')); // Add a line break
+        addressParagraph.appendChild(document.createElement('br'));
         addressParagraph.appendChild(document.createTextNode(shop.address_line_1));
-        addressParagraph.appendChild(document.createTextNode('\n'));
+        addressParagraph.appendChild(document.createElement('br'));
         addressParagraph.appendChild(document.createTextNode(shop.address_line_2));
         shopDiv.appendChild(addressParagraph);
 
@@ -64,6 +62,7 @@ function renderShopsHTML(shops) {
         const strongReview = document.createElement('strong');
         strongReview.textContent = 'Review:';
         reviewParagraph.appendChild(strongReview);
+        reviewParagraph.appendChild(document.createElement('br'));
         reviewParagraph.appendChild(document.createTextNode(shop.review));
         shopDiv.appendChild(reviewParagraph);
 
