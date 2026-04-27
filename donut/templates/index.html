@@ -2,10 +2,28 @@
 
 {% block content %}
 
-<h1>Donut Selfies</h1>
-<h2>I'm on a mission to take the worst selfie and find the best donuts.</h2>
+<h1 class="text-center">Donut Selfies</h1>
+<h2 class="text-center mb-4">I'm on a mission to take the worst selfie and find the best donuts.</h2>
 
+<!-- Search Form -->
+<!-- Note the 'action' attribute pointing to the current URL and method=get -->
+<form method="get" action="." class="mb-4">
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Added 'name' attribute to capture the value -->
+            <input type="text" name="name" class="form-control" placeholder="Search for donut shops by name..." aria-label="Search for donut shop name">
+        </div>
+        <div class="col-md-6">
+            <!-- Added 'name' attribute for location (optional logic in view needed later) -->
+            <input type="text" name="location" class="form-control" placeholder="Search for donut shops by location..." aria-label="Search for donut shop location">
+        </div>
+        <!-- Added hidden input to capture the location if needed in the query string -->
+        <!-- You might need to adjust views.py to handle 'location' parameter if you want that logic now -->
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Search</button>
+</form>
 
+<!-- Results Container -->
 <div id="container">
     <div id="shop-list">
         <h1>Nearby Shops</h1>
@@ -18,13 +36,18 @@
     </div>
 </div>
 
-<h1 class="section-title">All Shops</h1>
-{% for shop in shops %}
-<div class="shop">
-    <h2>{{ shop.name }}</h2>
-    <p><strong>Address:</strong><br>{{ shop.address_line_1 }}<br>{{ shop.address_line_2 }}</p>
-    <p><strong>Review:</strong> {{ shop.review }}</p>
-</div>
-{% endfor %}
+<h1 class="section-title">Ten Results</h1>
+<!-- The template loops over the 'shops' context variable provided by the view -->
+{% if shops %}
+    {% for shop in shops %}
+    <div class="shop">
+        <h2>{{ shop.name }}</h2>
+        <p><strong>Address:</strong><br>{{ shop.address_line_1 }}<br>{{ shop.address_line_2 }}</p>
+        <p><strong>Review:</strong> {{ shop.review }}</p>
+    </div>
+    {% endfor %}
+{% else %}
+    <p>No shops found matching your criteria.</p>
+{% endif %}
 
 {% endblock %}

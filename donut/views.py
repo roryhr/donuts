@@ -7,7 +7,17 @@ from donut.models import Shop
 
 
 def index(request):
-    shops = Shop.objects.order_by("name").all()[:5]
+    query_name = request.GET.get("name")
+    print("query name", query_name)
+    shops = Shop.objects.order_by("name").all()
+
+    if query_name:
+        # Search shops whose name contains the query (case-insensitive)
+        shops = shops.filter(name__icontains=query_name)
+    else:
+        # If no query, return top 10 ordered by name (or all, depending on preference)
+        shops = Shop.objects.order_by("name")[:10]
+
     context = {"shops": shops}
     return render(request, "index.html", context)
 
@@ -43,3 +53,26 @@ def calculate_distances(request):
     ]
 
     return JsonResponse(shop_data, safe=False)
+
+
+def search_shops(request):
+    query = request.GET.get("q")
+    if query:
+        # Search shops whose name contains the query (case-insensitive)
+        shops = Shop.objects.filter(name__icontains=query).order_by("name")
+    else:
+        shops = Shop.objects.none()
+
+    # Return relevant shop data
+    shop_data = [
+        {
+            "name": shop.name,
+            "review": shop.review,
+            "lat": shop.lat,
+            "lon": shop.lon,
+            "distance": None,  # Distance is not calculated here
+            "address_line_1": shop.address_line_1,
+            "address_line_2": shop.address_line_2,
+        }
+        for shop in shops
+    ]
